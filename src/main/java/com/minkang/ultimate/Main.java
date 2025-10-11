@@ -162,6 +162,20 @@ KitManager kitManager = KitManager.getInstance();
         bindCmd("기본템", new com.minkang.ultimate.commands.KitCommand());
         getServer().getPluginManager().registerEvents(new JoinQuitListener(this), this);
         getServer().getPluginManager().registerEvents(new YatuListener(this, new NamespacedKey(this, "yatu")), this);
+        
+        // === Added by ChatGPT: commands & market ===
+        try {
+            bindCmd("알걸음", new com.minkang.ultimate.commands.EggWalkAliasCommand());
+            bindCmd("시세상점", new com.minkang.ultimate.commands.MarketCommand());
+            bindCmd("시세상점설정", new com.minkang.ultimate.commands.MarketAdminCommand());
+        } catch (Throwable ignored) {}
+
+        try {
+            com.minkang.ultimate.managers.DynamicPricingManager.get(this).reload();
+            getServer().getPluginManager().registerEvents(new com.minkang.ultimate.listeners.MarketGuiListener(), this);
+            getServer().getPluginManager().registerEvents(new com.minkang.ultimate.listeners.MarketAdminGuiListener(), this);
+        } catch (Throwable ignored) {}
+
         getLogger().info("UltimateServerPlugin enabled.");
     }
 

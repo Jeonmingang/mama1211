@@ -103,3 +103,8 @@ permissions:
   usp.money.admin:
     description: /돈 설정 주기/차감 권한
     default: op
+
+  시세상점설정:
+    description: '시세 상점 관리자 설정 GUI'
+    usage: '/시세상점설정'
+    permission: usp.market.admin

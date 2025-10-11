@@ -1,1 +1,16 @@
 shops: {}
+market:
+  interval-seconds: 1800
+  items:
+    DIAMOND:
+      min: 100.0
+      max: 250.0
+      quota: 128
+    IRON_INGOT:
+      min: 10.0
+      max: 30.0
+      quota: 512
+    GOLD_INGOT:
+      min: 20.0
+      max: 50.0
+      quota: 256
