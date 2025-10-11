@@ -18,6 +18,7 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
 public class MarketGuiListener implements Listener {
+
     private Economy getEconomy() {
         try {
             RegisteredServiceProvider<Economy> rsp = Bukkit.getServicesManager().getRegistration(Economy.class);
@@ -32,6 +33,7 @@ public class MarketGuiListener implements Listener {
         String title = e.getView().getTitle();
         if (title == null || !ChatColor.stripColor(title).contains("시세 상점")) return;
 
+        // prevent taking items out
         e.setCancelled(true);
         if (!(e.getWhoClicked() instanceof Player)) return;
 
@@ -59,8 +61,6 @@ public class MarketGuiListener implements Listener {
         if (econ == null) { p.sendMessage(ChatColor.RED + "Vault 연동을 찾을 수 없습니다."); return; }
         econ.depositPlayer(p, money);
         p.sendMessage(ChatColor.GREEN + "판매 완료! " + mat.name() + " x" + want + " → " + String.format("%,.2f", money));
-
-        // refresh GUI item lore is omitted for simplicity
     }
 
     private int count(PlayerInventory inv, Material m) {
@@ -70,6 +70,7 @@ public class MarketGuiListener implements Listener {
         }
         return c;
     }
+
     private void remove(PlayerInventory inv, Material m, int qty) {
         for (int i = 0; i < inv.getSize() && qty > 0; i++) {
             ItemStack it = inv.getItem(i);
@@ -79,12 +80,13 @@ public class MarketGuiListener implements Listener {
             if (it.getAmount() <= 0) inv.setItem(i, null);
             qty -= take;
         }
-    
+    }
+
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onDrag(InventoryDragEvent e){
         String title = e.getView().getTitle();
         if (title == null) return;
-        if (org.bukkit.ChatColor.stripColor(title).contains("시세 상점")){
+        if (ChatColor.stripColor(title).contains("시세 상점")){
             e.setCancelled(true);
         }
     }
