@@ -9,9 +9,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.util.List;
 import java.util.Set;
 
 import com.minkang.ultimate.Main;
@@ -21,10 +21,9 @@ public class ShopKeyGUI {
     private static final String TITLE = ChatColor.DARK_AQUA + "상점 목록";
 
     public static Inventory build(Player viewer, String preferred) {
-        File dataFile = new File(Main.getInstance().getDataFolder(), "shops.yml");
+        File dataFile = new File(JavaPlugin.getPlugin(Main.class).getDataFolder(), "shops.yml");
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(dataFile);
 
-        // Expect shops under "shops" section (adjust if your format is different).
         Set<String> keys;
         if (cfg.isConfigurationSection("shops")) {
             keys = cfg.getConfigurationSection("shops").getKeys(false);

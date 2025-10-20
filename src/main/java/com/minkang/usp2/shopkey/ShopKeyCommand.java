@@ -10,6 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import com.minkang.ultimate.Main;
 
@@ -18,8 +19,10 @@ import java.util.List;
 
 public class ShopKeyCommand implements CommandExecutor {
 
-    public static final NamespacedKey KEY_FLAG = new NamespacedKey(Main.getInstance(), "shop_key");
-    public static final NamespacedKey KEY_PREFERRED = new NamespacedKey(Main.getInstance(), "shop_preferred");
+    public static final NamespacedKey KEY_FLAG =
+            new NamespacedKey(JavaPlugin.getPlugin(Main.class), "shop_key");
+    public static final NamespacedKey KEY_PREFERRED =
+            new NamespacedKey(JavaPlugin.getPlugin(Main.class), "shop_preferred");
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -52,7 +55,6 @@ public class ShopKeyCommand implements CommandExecutor {
         pdc.set(KEY_FLAG, PersistentDataType.INTEGER, 1);
         pdc.set(KEY_PREFERRED, PersistentDataType.STRING, shopName);
 
-        // Cosmetic name/lore
         meta.setDisplayName(ChatColor.GOLD + "상점 키 " + ChatColor.GRAY + "(" + shopName + ")");
         List<String> lore = new ArrayList<>();
         lore.add(ChatColor.DARK_GRAY + "허공에 우클릭: 상점 목록 열기");

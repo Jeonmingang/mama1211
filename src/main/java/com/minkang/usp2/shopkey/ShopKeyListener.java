@@ -1,7 +1,7 @@
 package com.minkang.usp2.shopkey;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.NamespacedKey;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -12,8 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-
-import com.minkang.ultimate.Main;
+import org.bukkit.entity.Player;
 
 public class ShopKeyListener implements Listener {
 
@@ -48,8 +47,10 @@ public class ShopKeyListener implements Listener {
         String shopName = ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName());
         if (shopName == null || shopName.isEmpty()) return;
 
-        // Delegate to existing command handler if present
-        e.getWhoClicked().closeInventory();
-        e.getWhoClicked().performCommand("상점 열기 " + shopName);
+        Player p = (Player) e.getWhoClicked();
+        p.closeInventory();
+        // Either directly run the command or dispatch via Bukkit
+        p.performCommand("상점 열기 " + shopName);
+        // Alternatively: Bukkit.dispatchCommand(p, "상점 열기 " + shopName);
     }
 }
