@@ -34,7 +34,6 @@ public class LockListener implements Listener {
 
     @EventHandler
     public void onSignCreate(SignChangeEvent e) {
-        // Only allow if using our ticket sign
         boolean byTicket = LockUtils.isOurTicket(e.getPlayer().getInventory().getItemInMainHand())
                 || LockUtils.isOurTicket(e.getPlayer().getInventory().getItemInOffHand());
         if (!byTicket) return;
@@ -45,10 +44,8 @@ public class LockListener implements Listener {
         List<String> names = new ArrayList<>();
         names.addAll(parseNames(e.getLine(1)));
         names.addAll(parseNames(e.getLine(2)));
-        // Optional: also accept line 3 if player adds more names
-        names.addAll(parseNames(e.getLine(3)));
+        names.addAll(parseNames(e.getLine(3))); // optional 3줄 추가 닉네임
 
-        // de-duplicate (case-insensitive)
         List<String> unique = names.stream()
                 .map(s -> s.toLowerCase(Locale.ROOT))
                 .distinct()
@@ -68,9 +65,7 @@ public class LockListener implements Listener {
 
         STORE.put(target.getLocation(), new LockStore.LockEntry(unique, System.currentTimeMillis()));
 
-        // Colorize but keep user's nickname lines
         e.setLine(0, ChatColor.GOLD + "[ 잠금 ]");
-        // Keep user-provided lines 1~3 as-is (no overwrite) for visibility
         e.getPlayer().sendMessage(ChatColor.YELLOW + "잠금 완료: " + ChatColor.WHITE + String.join(", ", unique) + ChatColor.GRAY + " 전용 상자");
     }
 
@@ -101,7 +96,6 @@ public class LockListener implements Listener {
                 if (!entry.canOpen(p)) {
                     e.setCancelled(true);
                     p.sendMessage(ChatColor.RED + "잠금된 상자를 파괴할 수 없습니다.");
-                    return;
                 } else {
                     STORE.remove(b.getLocation());
                     p.sendMessage(ChatColor.GRAY + "이 상자의 잠금이 해제되었습니다.");
