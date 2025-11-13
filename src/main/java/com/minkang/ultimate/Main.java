@@ -69,16 +69,19 @@ getServer().getPluginManager().registerEvents(new ShopGuiListener(this), this);
         try {
 
 // === Pixelmon korean aliases ===
-if (getCommand("개체값") != null) getCommand("개체값").setExecutor(new com.minkang.ultimate.commands.PixelmonAliasCommand());
-if (getCommand("노력치") != null) getCommand("노력치").setExecutor(new com.minkang.ultimate.commands.PixelmonAliasCommand());
-if (getCommand("알걸음") != null) getCommand("알걸음").setExecutor(new com.minkang.ultimate.commands.EggStepsCommand());
+        if (getCommand("개체값") != null) getCommand("개체값").setExecutor(new com.minkang.ultimate.commands.PixelmonAliasCommand());
+        if (getCommand("노력치") != null) getCommand("노력치").setExecutor(new com.minkang.ultimate.commands.PixelmonAliasCommand());
+        if (getCommand("알걸음") != null) getCommand("알걸음").setExecutor(new com.minkang.ultimate.commands.EggStepsCommand());
 
+        // Pixelmon /checkspawns 래퍼
+        // /전설시간 -> /checkspawns legendary
+        if (getCommand("전설시간") != null) getCommand("전설시간").setExecutor(new com.minkang.ultimate.commands.CheckSpawnsAliasCommand("legendary"));
+        // /메가보스, /메가보스시간 -> /checkspawns megaboss
         if (getCommand("메가보스") != null) getCommand("메가보스").setExecutor(new com.minkang.ultimate.commands.CheckSpawnsAliasCommand("megaboss"));
         if (getCommand("메가보스시간") != null) getCommand("메가보스시간").setExecutor(new com.minkang.ultimate.commands.CheckSpawnsAliasCommand("megaboss"));
-        if (getCommand("전설시간") != null) getCommand("전설시간").setExecutor(new com.minkang.ultimate.commands.CheckSpawnsAliasCommand("legendary"));
-if (getCommand("힐") != null) getCommand("힐").setExecutor(new com.minkang.ultimate.commands.HealAliasCommand());
-
-            if (getCommand("야투") != null) getCommand("야투").setExecutor(new YatuCommand(this, new NamespacedKey(this, "yatu")));
+        // /일반포켓몬 -> /checkspawns
+        if (getCommand("일반포켓몬") != null) getCommand("일반포켓몬").setExecutor(new com.minkang.ultimate.commands.CheckSpawnsAliasCommand(""));
+if (getCommand("야투") != null) getCommand("야투").setExecutor(new YatuCommand(this, new NamespacedKey(this, "yatu")));
             if (getCommand("잠금") != null) getCommand("잠금").setExecutor(new LockCommand(this));
             if (getCommand("잠금권") != null) getCommand("잠금권").setExecutor(new LockTokenCommand(this));
             if (getCommand("수리권") != null) getCommand("수리권").setExecutor(new RepairTicketCommand(this));

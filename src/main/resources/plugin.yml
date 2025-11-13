@@ -6,11 +6,14 @@ author: MinGang
 softdepend: [Vault, Essentials, Citizens]
 
 commands:
-  메가보스시간:
-    description: Pixelmon megaboss checkspawns (무권한)
-    
+  메가보스:
+    description: Pixelmon megaboss checkspawns (무권한 별칭)
+
   전설시간:
     description: checkspawns legendary (한글 별칭)
+
+  일반포켓몬:
+    description: Pixelmon 일반 checkspawns (무권한 별칭)
 
   힐:
     description: Pixelmon pokeheal (한글)
@@ -110,5 +113,4 @@ permissions:
   usp.money.admin:
     description: /돈 설정 주기/차감 권한
     default: op
-
 
