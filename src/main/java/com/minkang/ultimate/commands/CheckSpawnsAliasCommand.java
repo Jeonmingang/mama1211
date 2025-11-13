@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
  * Pixelmon 1.21.1 의 /checkspawns 서브 명령을 대신 실행해 준다.
  * - /전설시간 -> /checkspawns legendary
  * - /메가보스, /메가보스시간 -> /checkspawns megaboss
- * - /일반포켓몬 -> /checkspawns
+ * - /일반포켓몬 -> /checkspawns grass
  *
  * 권한 체크 없이 누구나 사용 가능해야 하므로 별도의 permission 검사 없이
  * 잠시 OP 로 올렸다가 다시 돌려놓는 방식으로 실행한다.

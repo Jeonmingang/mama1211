@@ -80,7 +80,7 @@ getServer().getPluginManager().registerEvents(new ShopGuiListener(this), this);
         if (getCommand("메가보스") != null) getCommand("메가보스").setExecutor(new com.minkang.ultimate.commands.CheckSpawnsAliasCommand("megaboss"));
         if (getCommand("메가보스시간") != null) getCommand("메가보스시간").setExecutor(new com.minkang.ultimate.commands.CheckSpawnsAliasCommand("megaboss"));
         // /일반포켓몬 -> /checkspawns
-        if (getCommand("일반포켓몬") != null) getCommand("일반포켓몬").setExecutor(new com.minkang.ultimate.commands.CheckSpawnsAliasCommand(""));
+        if (getCommand("일반포켓몬") != null) getCommand("일반포켓몬").setExecutor(new com.minkang.ultimate.commands.CheckSpawnsAliasCommand("grass"));
 if (getCommand("야투") != null) getCommand("야투").setExecutor(new YatuCommand(this, new NamespacedKey(this, "yatu")));
             if (getCommand("잠금") != null) getCommand("잠금").setExecutor(new LockCommand(this));
             if (getCommand("잠금권") != null) getCommand("잠금권").setExecutor(new LockTokenCommand(this));
