@@ -16,6 +16,10 @@ public class MoneyCommand implements CommandExecutor {
             return Bukkit.getServer().getServicesManager().load(Economy.class);
         }catch(Throwable t){ return null; }
     }
+    private String prefix() {
+        String raw = plugin.getConfig().getString("money.prefix", "&6[경제]&f");
+        return org.bukkit.ChatColor.translateAlternateColorCodes('&', raw) + " ";
+    }
 
     @Override
     public boolean onCommand(CommandSender s, Command c, String l, String[] a) {
@@ -34,7 +38,7 @@ public class MoneyCommand implements CommandExecutor {
             Player p = (Player)s;
             double bal = 0.0;
             try { bal = econ.getBalance((OfflinePlayer)p); } catch (Exception ignored){}
-            s.sendMessage("§6[경제] §f현재 잔액: " + String.format("%,.2f", bal));
+            s.sendMessage(prefix() + "현재 잔액: " + String.format("%,.2f", bal));
             return true;
         }
 
@@ -50,7 +54,7 @@ if (a.length == 1 &&
     if (target == null){ s.sendMessage("대상 플레이어를 찾을 수 없습니다."); return true; }
     double bal = 0.0;
     try { bal = econ.getBalance(target); } catch(Exception ex){ s.sendMessage("잔액 조회에 실패했습니다."); return true; }
-    s.sendMessage("§6[경제] §f" + targetName + " 님의 잔액: §e" + String.format("%,.2f", bal) + "§f");
+        s.sendMessage(prefix() + targetName + " 님의 잔액: §e" + String.format("%,.2f", bal) + "§f");
     return true;
 }
 
@@ -81,12 +85,12 @@ if (a.length >= 3 && "설정".equalsIgnoreCase(a[0])){
 
     if ("주기".equalsIgnoreCase(mode)){
         try { econ.depositPlayer(target, amount); } catch(Exception ignored){}
-        s.sendMessage("§6[경제] §f" + targetName + " 님에게 §e+" + String.format("%,.2f", amount) + "§f 지급");
+        s.sendMessage(prefix() + targetName + " 님에게 §e+" + String.format("%,.2f", amount) + "§f 지급");
         return true;
     }
     if ("차감".equalsIgnoreCase(mode)){
         try { econ.withdrawPlayer(target, amount); } catch(Exception ignored){}
-        s.sendMessage("§6[경제] §f" + targetName + " 님에게서 §c-" + String.format("%,.2f", amount) + "§f 차감");
+        s.sendMessage(prefix() + targetName + " 님에게서 §c-" + String.format("%,.2f", amount) + "§f 차감");
         return true;
     }
     s.sendMessage("§7사용법: /돈 설정 주기 <플레이어> <금액> | /돈 설정 차감 <플레이어> <금액>");

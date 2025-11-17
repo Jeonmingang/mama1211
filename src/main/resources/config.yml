@@ -95,3 +95,7 @@ post:
       name: "ENTITY_EXPERIENCE_ORB_PICKUP"
       volume: 1.0
       pitch: 1.2
+
+
+money:
+  prefix: "&6[경제] &f"

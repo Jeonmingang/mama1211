@@ -109,30 +109,6 @@ public class LockManager implements Listener {
 
     @EventHandler
     public void onUse(PlayerInteractEvent e){
-        if (e.getHand()!=EquipmentSlot.HAND) return;
-        if (e.getClickedBlock()==null) return;
-        ItemStack hand = e.getPlayer().getInventory().getItemInMainHand();
-        if (hand==null || !hand.hasItemMeta()) return;
-        PersistentDataContainer pdc = hand.getItemMeta().getPersistentDataContainer();
-        if (!pdc.has(key, PersistentDataType.INTEGER)) return;
-        String t = pdc.getOrDefault(keyType, PersistentDataType.STRING, "perm");
-        if (!"perm".equalsIgnoreCase(t)){
-            e.getPlayer().sendMessage("§7시간권은 §f/잠금 시간 <분> §7으로 사용하세요."); return;
-        }
-        // whitelist
-        List<String> whitelist = plugin.getConfig().getStringList("lock.allowed-blocks");
-        if (!whitelist.isEmpty() && !whitelist.contains(e.getClickedBlock().getType().name())) return;
-
-        e.setCancelled(true);
-        Player p = e.getPlayer();
-        String k = keyOf(e.getClickedBlock());
-        if (conf.contains("locks."+k)) { p.sendMessage("§c이미 잠금된 블록입니다."); return; }
-        conf.set("locks."+k+".owner", p.getUniqueId().toString());
-        conf.set("locks."+k+".ownerName", p.getName());
-        conf.set("locks."+k+".allowed", new ArrayList<String>());
-        conf.set("locks."+k+".expiresAt", -1L);
-        save();
-        p.sendMessage("§a잠금 완료!(영구)");
-        if (hand.getAmount()<=1) e.getPlayer().getInventory().setItemInMainHand(null); else hand.setAmount(hand.getAmount()-1);
+        // 잠금권 기능은 비활성화되었으므로 더 이상 동작하지 않습니다.
     }
 }

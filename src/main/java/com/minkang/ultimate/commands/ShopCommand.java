@@ -6,6 +6,7 @@ import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
@@ -301,6 +302,17 @@ if ("연동".equalsIgnoreCase(sub)) {
         if (rows < 1) rows = 1; if (rows > 6) rows = 6;
         int size = rows * 9;
         Inventory inv = Bukkit.createInventory(new ShopInventoryHolder(shopKey), size, "상점: " + shopKey);
+
+        // 배경을 유리 판으로 채워 상점 GUI를 더 보기 좋게 꾸밉니다.
+        ItemStack filler = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+        ItemMeta fillerMeta = filler.getItemMeta();
+        if (fillerMeta != null) {
+            fillerMeta.setDisplayName(" ");
+            filler.setItemMeta(fillerMeta);
+        }
+        for (int i = 0; i < size; i++) {
+            inv.setItem(i, filler);
+        }
 
         ConfigurationSection itemsSec = shopSec.getConfigurationSection("items");
         if (itemsSec != null){
