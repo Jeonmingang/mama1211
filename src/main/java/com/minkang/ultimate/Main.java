@@ -44,12 +44,16 @@ private EconomyManager economy;
 
     private ShopManager shop;
     private LockManager lock;
+    private HealItemManager healItemManager;
+    private ShopMenuItemManager shopMenuItemManager;
 
     public EconomyManager eco(){ return economy; }
     public BanknoteManager bank(){ return banknote; }
     public RepairManager repair(){ return repair; }
-public ShopManager shop(){ return shop; }
+    public ShopManager shop(){ return shop; }
     public LockManager lock(){ return lock; }
+    public HealItemManager healItems(){ return healItemManager; }
+    public ShopMenuItemManager shopMenuItems(){ return shopMenuItemManager; }
 
     @Override
     public void onEnable() {
@@ -64,11 +68,14 @@ getServer().getPluginManager().registerEvents(new ShopGuiListener(this), this);
         banknote = new BanknoteManager(this);
         repair = new RepairManager(this);
         shop = new ShopManager(this);
+        healItemManager = new HealItemManager(this);
+        shopMenuItemManager = new ShopMenuItemManager(this);
 // TRADE_DISABLED: trade manager removed
         // ===== Ensure command executors are registered =====
         try {
 
 // === Pixelmon korean aliases ===
+        if (getCommand("힐") != null) getCommand("힐").setExecutor(new com.minkang.ultimate.commands.HealAliasCommand(this));
         if (getCommand("개체값") != null) getCommand("개체값").setExecutor(new com.minkang.ultimate.commands.PixelmonAliasCommand());
         if (getCommand("노력치") != null) getCommand("노력치").setExecutor(new com.minkang.ultimate.commands.PixelmonAliasCommand());
         if (getCommand("알걸음") != null) getCommand("알걸음").setExecutor(new com.minkang.ultimate.commands.EggStepsCommand());
@@ -129,6 +136,8 @@ getServer().getPluginManager().registerEvents(new com.minkang.ultimate.listeners
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
         Bukkit.getPluginManager().registerEvents(banknote, this);
         Bukkit.getPluginManager().registerEvents(repair, this);
+        Bukkit.getPluginManager().registerEvents(healItemManager, this);
+        Bukkit.getPluginManager().registerEvents(shopMenuItemManager, this);
 
         Bukkit.getPluginManager().registerEvents(shop, this);
         Bukkit.getPluginManager().registerEvents(lock, this);

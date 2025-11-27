@@ -48,6 +48,7 @@ public class ShopCommand implements CommandExecutor {
         s.sendMessage(ChatColor.GRAY + "  /상점 추가 <이름> <구매|판매> <구매|판매> <금액> <금액> <수량> <슬롯>");
         s.sendMessage(ChatColor.GRAY + "  /상점 추가삭제 <이름> <슬롯>");
         s.sendMessage(ChatColor.GRAY + "  /상점 열기 <이름>");
+        s.sendMessage(ChatColor.GRAY + "  /상점 아이템 " + ChatColor.DARK_GRAY + "- 손에 든 아이템을 상점 메뉴 전용 아이템으로 설정");
         s.sendMessage(ChatColor.GRAY + "  /상점 연동 <이름>   " + ChatColor.DARK_GRAY + "← NPC 바라보고 실행");
         s.sendMessage(ChatColor.GRAY + "  /상점 연동해제      " + ChatColor.DARK_GRAY + "← NPC 바라보고 실행");
         s.sendMessage(ChatColor.GRAY + "  /상점 연동목록");
@@ -76,6 +77,37 @@ public class ShopCommand implements CommandExecutor {
 
         if ("목록".equalsIgnoreCase(sub)) {
             listShops(sender);
+            return true;
+        }
+
+
+        if ("아이템".equalsIgnoreCase(sub)) {
+            if (!(sender instanceof Player)) {
+                sender.sendMessage("§c플레이어만 사용할 수 있습니다.");
+                return true;
+            }
+            Player p = (Player) sender;
+            if (!p.isOp() && !p.hasPermission("usp.shop.item")) {
+                p.sendMessage("§c이 명령어는 운영자 전용입니다.");
+                return true;
+            }
+            ItemStack inHand = p.getInventory().getItemInMainHand();
+            if (inHand == null || inHand.getType().isAir()) {
+                p.sendMessage("§c손에 든 아이템이 없습니다.");
+                return true;
+            }
+            Main plugin = Main.getPlugin(Main.class);
+            if (plugin.shopMenuItems() == null) {
+                p.sendMessage("§c상점 전용 아이템 시스템이 초기화되지 않았습니다. 관리자에게 문의하세요.");
+                return true;
+            }
+            ItemStack converted = plugin.shopMenuItems().makeShopMenuItem(inHand);
+            if (converted == null) {
+                p.sendMessage("§c이 아이템은 상점 전용 아이템으로 만들 수 없습니다.");
+                return true;
+            }
+            p.getInventory().setItemInMainHand(converted);
+            p.sendMessage("§e상점 전용 아이템이 설정되었습니다! §b우클릭§7 시 상점 메뉴가 열립니다.");
             return true;
         }
 
