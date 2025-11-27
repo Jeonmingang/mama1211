@@ -1,6 +1,7 @@
 package com.minkang.ultimate.commands;
 
 import com.minkang.ultimate.Main;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -50,7 +51,7 @@ public class HealAliasCommand implements CommandExecutor {
         }
 
         // 기본: /힐 → /pokeheal 실행
-        boolean ok = p.performCommand("pokeheal");
+        boolean ok = Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pokeheal " + p.getName());
         if (!ok) {
             p.sendMessage("§c/pokeheal 명령어를 찾을 수 없습니다. Pixelmon 플러그인을 확인해주세요.");
         }

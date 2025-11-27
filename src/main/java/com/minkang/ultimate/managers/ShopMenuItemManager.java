@@ -52,9 +52,9 @@ public class ShopMenuItemManager implements Listener {
 
         meta.setDisplayName(Texts.color("&e원클릭 상점 메뉴")); 
         List<String> lore = new ArrayList<>();
-        lore.add(Texts.color("&7우클릭 시 &f상점 목록 GUI &7가 열립니다.")); 
-        lore.add(Texts.color("&8- &f/상점 생성, /상점 목록 에서 설정한 상점들이 표시됩니다.")); 
-        lore.add(Texts.color("&8- &7GUI에서 원하는 상점을 클릭하면 바로 그 상점이 열립니다.")); 
+        lore.add(Texts.color("&7우클릭 시 &e상점 메뉴&7가 열립니다.")); 
+        lore.add(Texts.color("&8- &f언제 어디서나 상점을 열 수 있는 전용 아이템")); 
+        lore.add(Texts.color("&8- &7원하는 상점을 클릭해서 바로 이용해 보세요!")); 
         meta.setLore(lore);
 
         // 반짝이 효과
