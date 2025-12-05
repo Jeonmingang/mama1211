@@ -79,6 +79,7 @@ getServer().getPluginManager().registerEvents(new ShopGuiListener(this), this);
         if (getCommand("개체값") != null) getCommand("개체값").setExecutor(new com.minkang.ultimate.commands.PixelmonAliasCommand());
         if (getCommand("노력치") != null) getCommand("노력치").setExecutor(new com.minkang.ultimate.commands.PixelmonAliasCommand());
         if (getCommand("알걸음") != null) getCommand("알걸음").setExecutor(new com.minkang.ultimate.commands.EggStepsCommand());
+        if (getCommand("피씨") != null) getCommand("피씨").setExecutor(new com.minkang.ultimate.commands.PcAliasCommand());
 
         // Pixelmon /checkspawns 래퍼
         // /전설시간 -> /checkspawns legendary

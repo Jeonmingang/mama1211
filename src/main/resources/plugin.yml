@@ -72,6 +72,11 @@ commands:
     aliases: [거]
     description: 거래 관련 글을 전체 채팅에 올립니다. (유료)
     usage: "/거래글 <내용>"
+
+피씨:
+  description: Pixelmon PC 열기 (한글 별칭)
+  usage: /피씨
+
 permissions:
   usp.draw:
     description: 추첨 명령 (OP 전용)
